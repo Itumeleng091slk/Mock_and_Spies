@@ -1,0 +1,5 @@
+﻿Dear ${PERSON_NAME}
+
+"The only true measure of success if the number of people you have helped" — Ray Dalio
+
+Your Truly Ray
