@@ -1,17 +1,15 @@
+import os
 import smtplib
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-MY_ADDRESS ='magdalene.selokela@umuzi.org'
-PASSWORD ='3L6hbm5pETagCnqw'
-Email_To = 'magdalene.selokela@gmail.com'
+user = os.getenv("App_Address")
+passwrd = os.getenv("App_Password")
+to_email = os.getenv("App_email_to")
 
 def get_contacts(filename):
-    """
-    Return two lists names, emails containing names and email addresses
-    read from a file specified by filename.
-    """
+  
     names = []
     emails = []
     with open(filename, mode='r', encoding='utf-8') as contacts_file:
@@ -21,10 +19,7 @@ def get_contacts(filename):
     return names, emails
 
 def read_template(filename):
-    """
-    Returns a Template object comprising the contents of the 
-    file specified by filename.
-    """
+   
     
     with open(filename, 'r', encoding='utf-8') as template_file:
         template_file_content = template_file.read()
@@ -37,7 +32,7 @@ def main():
     # set up the SMTP server
     s = smtplib.SMTP(host='smtp-relay.sendinblue.com', port=587)
     s.starttls()
-    s.login(MY_ADDRESS, PASSWORD)
+    s.login(user,passwrd)
 
     # For each contact, send the email:
     for name, email in zip(names, emails):
@@ -50,8 +45,8 @@ def main():
         print(message)
 
         # setup the parameters of the message
-        msg['From']=MY_ADDRESS
-        msg['To']=email
+        msg['From']=user
+        msg['To']=to_email
         msg['Subject']="This is TEST"
         
         # add in the message body
@@ -63,6 +58,6 @@ def main():
         
     # Terminate the SMTP session and close the connection
     s.quit()
-    
+   
 if __name__ == '__main__':
     main()
