@@ -1,5 +1,7 @@
 import os
 import smtplib
+# import model
+import random
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -8,56 +10,62 @@ user = os.getenv("App_Address")
 passwrd = os.getenv("App_Password")
 to_email = os.getenv("App_email_to")
 
-def get_contacts(filename):
-  
-    names = []
-    emails = []
-    with open(filename, mode='r', encoding='utf-8') as contacts_file:
-        for a_contact in contacts_file:
-            names.append(a_contact.split()[0])
-            emails.append(a_contact.split()[1])
-    return names, emails
 
-def read_template(filename):
-   
-    
-    with open(filename, 'r', encoding='utf-8') as template_file:
-        template_file_content = template_file.read()
-    return Template(template_file_content)
+quote_file = open('model.txt','r')
+line_list = quote_file.read().split('\n') #read the file however you'd like to read it.
+quote_file.close()
 
-def main():
-    names, emails = get_contacts('my_contacts.txt') # read contacts
-    message_template = read_template('message.txt')
+class Quote_email():
 
-    # set up the SMTP server
-    s = smtplib.SMTP(host='smtp-relay.sendinblue.com', port=587)
-    s.starttls()
-    s.login(user,passwrd)
+    def __init__(self,quote,author):
+        self.quote = quote
+        self.author = author
 
-    # For each contact, send the email:
-    for name, email in zip(names, emails):
-        msg = MIMEMultipart()       # create a message
+    def email_quote(self):
+        s = '"%s" -%s' %(self.quote,self.author)
+        quotelist = []
+        for line in linelist:
+            thesplit = line.split()
+            quote = Quote(thesplit[0],thesplit[1]) 
+        quotelist.append(quote)
+        quotechoice = random.choice(quotelist)
+        # print (quotechoice)
 
-        # add in the actual person name to the message template
-        message = message_template.substitute(PERSON_NAME=name.title())
+    def get_contacts(self, file_name,names , emails):
+        self.filename = file_name
+        self.names = []
+        self.emails = []
+        with open(self.filename, mode='r', encoding='utf-8') as contacts_file:
+            for contact in contacts_file:
+                self.names.append(contact.split()[0])
+                self.emails.append(contact.split()[1])
+        return self.names, self.emails
 
-        # Prints out the message body for our sake
-        print(message)
+    def read_template(self):
+        with open(self.filename, 'r', encoding='utf-8') as template_file:
+            template_file_content = template_file.read()
+        return Template(template_file_content)
 
-        # setup the parameters of the message
+    def main(self):
+        self.names, self.emails = get_contacts('my_contacts.txt') # read contacts
+        message_template = read_template('model.txt')
+        try:
+            server = smtplib.SMTP(host='smtp-relay.sendinblue.com', port=587)
+            server.ehlo()
+            server.starttls()
+            sever.login(user,passwrd)
+            msg = f'Subject:{author}\n\n{msg}'
+            server.sendmail(user,passwrd)
+            server.quit()
+            return 'successful:email sent'
+        except:
+            return 'email failed'
+     
         msg['From']=user
         msg['To']=to_email
         msg['Subject']="This is TEST"
-        
-        # add in the message body
-        msg.attach(MIMEText(message, 'plain'))
-        
-        # send the message via the server set up earlier.
-        s.send_message(msg)
-        del msg
-        
-    # Terminate the SMTP session and close the connection
-    s.quit()
-   
-if __name__ == '__main__':
-    main()
+
+# email_sent = Quote_email(quote,author)
+# print(email_sent.main())         
+     
+
