@@ -54,7 +54,7 @@ class Quote_email():
             server.ehlo()
             server.starttls()
             sever.login(user,passwrd)
-            msg = f'Subject:{author}\n\n{msg}'
+            msg = f'Subject:{author}\n\n{quote}'
             server.sendmail(user,passwrd)
             server.quit()
             return 'successful:email sent'
