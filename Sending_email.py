@@ -26,7 +26,7 @@ class Quote_email():
         quotelist = []
         for line in linelist:
             thesplit = line.split()
-            quote = Quote(thesplit[0],thesplit[1]) 
+            quote = Quote_email(thesplit[0],thesplit[1]) 
         quotelist.append(quote)
         quotechoice = random.choice(quotelist)
         # print (quotechoice)
