@@ -16,21 +16,21 @@ quote_file = open('model.txt','r')
 line_list = quote_file.read().split('\n') #read the file however you'd like to read it.
 quote_file.close()
 
-class Quote_email():
+class Random_message():
 
-    def __init__(self,quote,author):
-        self.quote = quote
+    def __init__(self,message,author):
+        self.message = random_message
         self.author = author
 
-    def email_message(self):
+    def inspirational_quote(self):
         s = '"%s" -%s' %(self.message,self.author)
-        quotelist = []
-        for line in linelist:
-            split = line.split()
-            quote = Quote_email(split[0],split[1]) 
-        quote_list.append(quote)
-        quote_choice = random.choice(quote_list)
-        # print (quotechoice)
+        message_list = []
+        for line in line_list:
+            split_quote = line.split()
+            quote = Quote(split_quote[0],split_quote[1]) 
+        message_list.append(quote)
+        quote_choice = random.choice(message_list)
+        return quote_choice
 
     def get_contacts(self, file_name,names , emails):
         self.file_name = filename
@@ -70,6 +70,8 @@ class Quote_email():
 # email_sent = Quote_email(quote,author)
 # print(email_sent.main())         
      
+
+
 
   
      
