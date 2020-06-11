@@ -33,17 +33,17 @@ class Quote_email():
         # print (quotechoice)
 
     def get_contacts(self, file_name,names , emails):
-        self.filename = file_name
+        self.file_name = filename
         self.names = []
         self.emails = []
-        with open(self.filename, mode='r', encoding='utf-8') as contacts_file:
-            for contact in contacts_file:
+        with open(filename, mode='mode', encoding='encoding') as my_contacts_file:
+            for contact in my_contacts_file:
                 self.names.append(contact.split()[0])
                 self.emails.append(contact.split()[1])
         return self.names, self.emails
 
     def read_template(self):
-        with open(self.filename, 'r', encoding='utf-8') as template_file:
+        with open(filename, 'mode', encoding='encoding') as template_file:
             template_file_content = template_file.read()
         return Template(template_file_content)
 
@@ -65,7 +65,7 @@ class Quote_email():
      
         msg['From']=user
         msg['To']=to_email
-        msg['Subject']="This is TEST"
+        msg['Subject']="Review project"
 
 # email_sent = Quote_email(quote,author)
 # print(email_sent.main())         
