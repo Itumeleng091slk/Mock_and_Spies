@@ -12,7 +12,7 @@ to_email = os.getenv("App_email_to")
 
 
 quote_file = open('model.txt','r')
-line_list = quote_file.read().split('\n') 
+line_list = quote_file.read().split('\n') #read the file however you'd like to read it.
 quote_file.close()
 
 class Quote_email():
@@ -22,11 +22,11 @@ class Quote_email():
         self.author = author
 
     def email_quote(self):
-        s = '"%s" -%s' %(self.quote,self.author) # %s stands for string
+        s = '"%s" -%s' %(self.quote,self.author)
         quotelist = []
         for line in linelist:
             thesplit = line.split()
-            quote = Quote_email(thesplit[0],thesplit[1]) 
+            quote = Quote(thesplit[0],thesplit[1]) 
         quotelist.append(quote)
         quotechoice = random.choice(quotelist)
         # print (quotechoice)
@@ -47,19 +47,20 @@ class Quote_email():
         return Template(template_file_content)
 
     def main(self):
-        self.names, self.emails = get_contacts('my_contacts.txt') # read contacts
+        self.names, self.emails = get_contacts('my_contacts.txt') 
         message_template = read_template('model.txt')
         try:
             server = smtplib.SMTP(host='smtp-relay.sendinblue.com', port=587)
             server.ehlo()
             server.starttls()
             sever.login(user,passwrd)
-            msg = f'Subject:{author}\n\n{quote}'
+            msg = f'Subject:{author}\n\n{msg}'
             server.sendmail(user,passwrd)
-            server.quit()
             return 'successful:email sent'
         except:
             return 'email failed'
+        finally:
+            server.quit()
      
         msg['From']=user
         msg['To']=to_email
@@ -68,4 +69,6 @@ class Quote_email():
 # email_sent = Quote_email(quote,author)
 # print(email_sent.main())         
      
+
+
 
