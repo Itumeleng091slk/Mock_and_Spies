@@ -12,7 +12,7 @@ to_email = os.getenv("App_email_to")
 
 
 quote_file = open('model.txt','r')
-line_list = quote_file.read().split('\n') #read the file however you'd like to read it.
+line_list = quote_file.read().split('\n') 
 quote_file.close()
 
 class Quote_email():
@@ -22,7 +22,7 @@ class Quote_email():
         self.author = author
 
     def email_quote(self):
-        s = '"%s" -%s' %(self.quote,self.author)
+        s = '"%s" -%s' %(self.quote,self.author) # %s stands for string
         quotelist = []
         for line in linelist:
             thesplit = line.split()
