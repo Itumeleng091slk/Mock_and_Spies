@@ -2,6 +2,7 @@ import os
 import smtplib
 # import model
 import random
+from credentials import host, port
 from string import Template
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -47,10 +48,10 @@ class Quote_email():
         return Template(template_file_content)
 
     def main(self):
-        self.names, self.emails = get_contacts('my_contacts.txt') 
+        self.names, self.emails = get_contacts('my_contacts.txt') # read contacts
         message_template = read_template('model.txt')
         try:
-            server = smtplib.SMTP(host='smtp-relay.sendinblue.com', port=587)
+            server = smtplib.SMTP(host='host', port=port)
             server.ehlo()
             server.starttls()
             sever.login(user,passwrd)
@@ -68,6 +69,9 @@ class Quote_email():
 
 # email_sent = Quote_email(quote,author)
 # print(email_sent.main())         
+     
+
+  
      
 
 
