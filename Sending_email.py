@@ -27,7 +27,7 @@ class Random_message():
         message_list = []
         for line in line_list:
             split_quote = line.split()
-            quote = Quote(split_quote[0],split_quote[1]) 
+            quote = inspirational_quote(split_quote[0],split_quote[1]) 
         message_list.append(quote)
         quote_choice = random.choice(message_list)
         return quote_choice
