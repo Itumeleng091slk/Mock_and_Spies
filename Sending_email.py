@@ -22,14 +22,14 @@ class Quote_email():
         self.quote = quote
         self.author = author
 
-    def email_quote(self):
-        s = '"%s" -%s' %(self.quote,self.author)
+    def email_message(self):
+        s = '"%s" -%s' %(self.message,self.author)
         quotelist = []
         for line in linelist:
-            thesplit = line.split()
-            quote = Quote(thesplit[0],thesplit[1]) 
-        quotelist.append(quote)
-        quotechoice = random.choice(quotelist)
+            split = line.split()
+            quote = Quote_email(split[0],split[1]) 
+        quote_list.append(quote)
+        quote_choice = random.choice(quote_list)
         # print (quotechoice)
 
     def get_contacts(self, file_name,names , emails):
