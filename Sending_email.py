@@ -10,8 +10,6 @@ from email.mime.text import MIMEText
 user = os.getenv("App_Address")
 passwrd = os.getenv("App_Password")
 to_email = os.getenv("App_email_to")
-
-
 quote_file = open('model.txt','r')
 line_list = quote_file.read().split('\n')
 quote_file.close()
@@ -36,14 +34,14 @@ class Random_message():
         self.filename = filename
         self.names = []
         self.emails = []
-        with open(filename, mode='mode', encoding='encoding') as my_contacts_file:
+        with open(filename, mode='mode', encoding='utf-8') as my_contacts_file:
             for contact in my_contacts_file:
                 self.names.append(contact.split()[0])
                 self.emails.append(contact.split()[1])
         return self.names, self.emails
 
     def read_model_template(self):
-        with open(self.filename, 'mode', encoding='encoding') as model_file:
+        with open(self.filename,'mode', encoding='utf-8') as model_file:
             model_file_content = model_file.read()
         return Template(model_file_content)
 
@@ -74,7 +72,12 @@ class Random_message():
 
 
 if __name__ == "__main__":
-    email_sent = Random_message("A verbal contract is not worth the paper it's written on.","Samuel Goldwyn")      
+    email_sent = Random_message("A verbal contract is not worth the paper it's written on.","Samuel Goldwyn")
+
+
+
+      
+ 
      
 
 
