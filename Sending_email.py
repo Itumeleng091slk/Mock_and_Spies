@@ -1,6 +1,6 @@
 import os
 import smtplib
-# import model
+from http import HTTPStatus
 import random
 from credentials import host, port
 from string import Template
@@ -13,27 +13,27 @@ to_email = os.getenv("App_email_to")
 
 
 quote_file = open('model.txt','r')
-line_list = quote_file.read().split('\n') #read the file however you'd like to read it.
+line_list = quote_file.read().split('\n')
 quote_file.close()
 
 class Random_message():
 
-    def __init__(self,message,author):
-        self.message = random_message
+    def __init__(self,random_message,author):
+        self.random_message = random_message
         self.author = author
 
-    def inspirational_quote(self):
-        s = '"%s" -%s' %(self.message,self.author)
+    def __str__(self): #string method
+        s = '"%s" -%s' %(self.random_message,self.author)
         message_list = []
         for line in line_list:
             split_quote = line.split()
-            quote = inspirational_quote(split_quote[0],split_quote[1]) 
+            quote = __str__(split_quote[0],split_quote[1]) 
         message_list.append(quote)
         quote_choice = random.choice(message_list)
         return quote_choice
 
-    def get_contacts(self, file_name,names , emails):
-        self.file_name = filename
+    def extract_contacts(self, filename,names ,emails):
+        self.filename = filename
         self.names = []
         self.emails = []
         with open(filename, mode='mode', encoding='encoding') as my_contacts_file:
@@ -42,33 +42,39 @@ class Random_message():
                 self.emails.append(contact.split()[1])
         return self.names, self.emails
 
-    def read_template(self):
-        with open(filename, 'mode', encoding='encoding') as template_file:
-            template_file_content = template_file.read()
-        return Template(template_file_content)
+    def read_model_template(self):
+        with open(self.filename, 'mode', encoding='encoding') as model_file:
+            model_file_content = model_file.read()
+        return Template(model_file_content)
 
-    def main(self):
-        self.names, self.emails = get_contacts('my_contacts.txt') # read contacts
-        message_template = read_template('model.txt')
+    def sending_mail(self, extract_contacts, read_model_template):
+        self.names, self.emails = extract_contacts('my_contacts.txt') # read contacts
+        message_template = read_model_template('model.txt')
         try:
             server = smtplib.SMTP(host='host', port=port)
             server.ehlo()
             server.starttls()
             sever.login(user,passwrd)
-            msg = f'Subject:{author}\n\n{msg}'
-            server.sendmail(user,passwrd)
-            return 'successful:email sent'
+            for self.names, self.emails in zip(self.name, self.email):
+                msg = MIMEMultipart()
+                random_message = message_template.substitute(SUBJECT_NAME=name.title())
+                print(random_message)
+                msg = f'Subject:{author}\n\n{msg}'
+                msg['From']=user
+                msg['To']=to_email
+                msg['Subject']="Review project"
+                body = f'This is a test message sent to {to_email}'
+                msg.attach(MIMEText(random_message, 'plain'))
+                server.sendmail(random_message)
+                print('successful: <200>')
         except:
-            return 'email failed'
+                print('email failed: <404>')
         finally:
             server.quit()
-     
-        msg['From']=user
-        msg['To']=to_email
-        msg['Subject']="Review project"
 
-# email_sent = Quote_email(quote,author)
-# print(email_sent.main())         
+
+if __name__ == "__main__":
+    email_sent = Random_message("A verbal contract is not worth the paper it's written on.","Samuel Goldwyn")      
      
 
 
